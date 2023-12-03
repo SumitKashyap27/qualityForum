@@ -50,7 +50,7 @@ function Page() {
                       <Button
                         type="submit"
                         variant="contained"
-                        className="rounded shadow-[0px_4px_4px_0px_rgba(0,0,0,0.30)] bg-sky-700 flex w-full flex-col mt-9"
+                        className="rounded shadow-[0px_4px_4px_0px_rgba(0,0,0,0.30)] bg-sky-700 flex w-full flex-col mt-4"
                       >
                         Login
                       </Button>

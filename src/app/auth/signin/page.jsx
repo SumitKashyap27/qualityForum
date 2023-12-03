@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { TextField, Button } from "@mui/material";
 
@@ -32,18 +33,16 @@ function Page() {
                 <div className="flex flex-col">
                   <div className="flex flex-col max-md:mt-10 gap-6 justify-center items-center">
                     <TextField
-                      className="rounded border self-stretch flex w-full flex-col pl-4 pr-5 py-4 pt-10 border-solid border-black"
+                      className="rounded border w-full"
                       id="collegeId"
                       label="College ID"
                       variant="outlined"
                     />
-                    <TextField
-                      className="rounded border self-stretch flex w-full flex-col mt-7 pl-4 pr-5 py-3 border-solid border-black"
-                      id="password"
-                      label="Password"
-                      type="password"
-                      variant="outlined"
-                    />
+                    <TextField 
+                    className="rounded border w-full"
+                    id="outlined-basic" 
+                    label="Password" 
+                    variant="outlined" />
                     <a
                       href="/dashboard"
                       className="text-white no-underline w-full"
@@ -51,7 +50,7 @@ function Page() {
                       <Button
                         type="submit"
                         variant="contained"
-                        className="rounded shadow-[0px_4px_4px_0px_rgba(0,0,0,0.30)] bg-sky-700 flex w-full flex-col mt-9 px-14 py-6"
+                        className="rounded shadow-[0px_4px_4px_0px_rgba(0,0,0,0.30)] bg-sky-700 flex w-full flex-col mt-9"
                       >
                         Login
                       </Button>

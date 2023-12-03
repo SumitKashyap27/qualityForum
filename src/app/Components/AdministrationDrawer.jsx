@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import * as React from "react";
 import PropTypes from "prop-types";
 import AppBar from "@mui/material/AppBar";
@@ -15,14 +15,10 @@ import ListItemText from "@mui/material/ListItemText";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import Wardenimg from "../assets/warden.png";
-import AddStudent from "./AddStudent";
-import ViewIssues from "./ViewIssues";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import ViewDashboard from "./ViewDashboard";
-import SysAdminView from "./SysAdminView";
 
 const drawerWidth = 240;
 
@@ -41,7 +37,7 @@ function AdministrationDrawer(props) {
       <img
         className=" block mx-auto my-auto  w-20 h-20"
         loading="lazy"
-        src={Wardenimg}
+        src="/assets/warden.png"
         alt="Student"
       />
       <h3 className="pt-2 pb-3  text-center">Name</h3>

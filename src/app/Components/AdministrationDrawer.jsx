@@ -21,11 +21,15 @@ import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import ViewDashboard from "./ViewDashboard";
 import AddStudent from "./AddStudents";
 import ViewIssues from "./ViewIssues";
+import SysAdminView from "./SysAdminView";
+import StudentFeedback from "./StudentFeedback";
+import RaiseAIssue from "./RiseAIssue";
 
 const drawerWidth = 240;
 
 function AdministrationDrawer(props) {
-  const { window } = props;
+  const { window, drawerValue } = props;
+  console.log(drawerValue);
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [currentTab, setCurrentTab] = React.useState("Dashboard");
 
@@ -46,24 +50,22 @@ function AdministrationDrawer(props) {
 
       <Divider />
       <List>
-        {["Dashboard", "AddStudents", "View Issues", "SysAdminView"].map(
-          (text, index) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton onClick={() => setCurrentTab(text)}>
-                <ListItemIcon>
-                  {index % 3 === 0 ? (
-                    <DashboardIcon />
-                  ) : index % 3 === 1 ? (
-                    <AddBoxIcon />
-                  ) : (
-                    <RemoveRedEyeIcon />
-                  )}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItemButton>
-            </ListItem>
-          )
-        )}
+        {drawerValue.map((text, index) => (
+          <ListItem key={text} disablePadding>
+            <ListItemButton onClick={() => setCurrentTab(text)}>
+              <ListItemIcon>
+                {index % 3 === 0 ? (
+                  <DashboardIcon />
+                ) : index % 3 === 1 ? (
+                  <AddBoxIcon />
+                ) : (
+                  <RemoveRedEyeIcon />
+                )}
+              </ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItemButton>
+          </ListItem>
+        ))}
       </List>
       <Divider />
       <Divider />
@@ -150,6 +152,8 @@ function AdministrationDrawer(props) {
         {currentTab === "AddStudents" && <AddStudent />}
         {currentTab === "View Issues" && <ViewIssues />}
         {currentTab === "SysAdminView" && <SysAdminView />}
+        {currentTab === "Feedback" && <StudentFeedback />}
+        {currentTab === "RaiseAIssue" && <RaiseAIssue />}
       </Box>
     </Box>
   );

@@ -124,6 +124,7 @@ const AddStudent = (props) => {
                     fullWidth
                     variant="contained"
                     sx={{ mt: 3, mb: 2 }}
+                    className="bg-blue-700 hover:bg-blue-700"
                   >
                     Register
                   </Button>

@@ -105,6 +105,7 @@ const WifiService = () => {
       }} 
       variant="contained"
       onClick={wifiRating}
+      className="bg-blue-700 hover:bg-blue-700"
       >
         Submit
       </Button>

@@ -24,6 +24,7 @@ const plans = [
 
 const ViewDashboard = (props) => {
   const [selectedPlans, setSelectedPlans] = useState([]);
+  const [comments, setComments] = useState([]);
 
   const togglePlan = (plan) => {
     if (selectedPlans.includes(plan)) {
@@ -32,7 +33,21 @@ const ViewDashboard = (props) => {
       setSelectedPlans([...selectedPlans, plan]);
     }
   };
+  useEffect(() => {
+    // Fetch comments from the server and update the state
+    const fetchData = async () => {
+      try {
+        const response = await fetch("your-server-endpoint");
+        const data = await response.json();
+        setComments(data.comments); // Assuming your server response has a 'comments' array
+      } catch (error) {
+        console.error("Error fetching comments:", error);
+      }
+    };
 
+    fetchData();
+  }, []);
+  
   return (
     <main>
       <header className=" bg-opacity-60 self-stretch flex flex-col mb-1 pb-24 px-5 max-md:max-w-full">
@@ -139,7 +154,15 @@ const ViewDashboard = (props) => {
                 </div>
               </div>
               <div className="grid col-span-1 md:col-span-1 flex-grow items-stretch ml-0 md:ml-5 max-md:w-full max-md:ml-0 bg-white shadow-sm rounded-xl pt-10 pl-5">
-                Comments
+                Comments/Suggestions
+                <div className=" pr-6 flex w-full h-auto flex-col rounded-sm self-start max-md:max-w-full">
+                  {comments.map((comment, index) => (
+                    <div key={index} className="mb-4">
+                      <p>{comment.name}:</p>
+                      <p>{comment.text}</p>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </>

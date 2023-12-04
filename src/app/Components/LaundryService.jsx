@@ -1,6 +1,7 @@
 "use client"
 import React,{useState} from "react";
 import Rating from "@mui/material/Rating";
+import { Button } from "@mui/material";
 
 const LaundryService = () => {
   const [machineConditionRating, setMachineConditionRating] = useState(1);
@@ -27,10 +28,12 @@ const LaundryService = () => {
   };
 
   // Log ratings to the console
-  console.log('Machine Condition Rating:', machineConditionRating, 'Count:', machineConditionRatingCount);
-  console.log('Cleanliness Rating:', cleanlinessRating, 'Count:', cleanlinessRatingCount);
-  console.log('Availability & Accessibility Rating:', availabilityAccessibilityRating, 'Count:', availabilityAccessibilityRatingCount);
+  const laundryRating=()=>{
+    console.log('Machine Condition Rating:', machineConditionRating, 'Count:', machineConditionRatingCount);
+    console.log('Cleanliness Rating:', cleanlinessRating, 'Count:', cleanlinessRatingCount);
+    console.log('Availability & Accessibility Rating:', availabilityAccessibilityRating, 'Count:', availabilityAccessibilityRatingCount);
 
+  }
 
 
   return (
@@ -98,6 +101,16 @@ const LaundryService = () => {
           </div>
         </div>
       </div>
+      <Button 
+      style={{ 
+        float: "right",
+        marginTop:"20px"
+      }} 
+      variant="contained"
+      onClick={laundryRating}
+      >
+        Submit
+      </Button>
     </section>
   );
 };

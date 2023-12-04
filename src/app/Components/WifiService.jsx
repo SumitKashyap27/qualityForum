@@ -2,6 +2,7 @@
 
 import React,{useState} from "react";
 import Rating from "@mui/material/Rating";
+import { Button } from "@mui/material";
 
 const WifiService = () => {
 
@@ -29,10 +30,11 @@ const WifiService = () => {
   };
   
   // Log ratings to the console
-  console.log('Speed Rating:', speedRating, 'Count:', speedRatingCount);
-  console.log('Connectivity Rating:', connectivityRating, 'Count:', connectivityRatingCount);
-  console.log('Range Rating:', rangeRating, 'Count:', rangeRatingCount);
-  
+  const wifiRating=()=>{
+    console.log('Speed Rating:', speedRating, 'Count:', speedRatingCount);
+    console.log('Connectivity Rating:', connectivityRating, 'Count:', connectivityRatingCount);
+    console.log('Range Rating:', rangeRating, 'Count:', rangeRatingCount);
+  }
   return (
     <section className="self-center w-full mt-10 max-md:max-w-full max-md:mt-8">
       <div className="flex max-md:flex-col max-md:items-stretch max-md:gap-0">
@@ -96,6 +98,16 @@ const WifiService = () => {
           </div>
         </div>
       </div>
+      <Button
+      style={{ 
+        float: "right",
+        marginTop:"20px"
+      }} 
+      variant="contained"
+      onClick={wifiRating}
+      >
+        Submit
+      </Button>
     </section>
   );
 };

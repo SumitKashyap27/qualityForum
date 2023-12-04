@@ -21,7 +21,7 @@ import ViewDashboard from "./ViewDashboard";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import RateReviewIcon from "@mui/icons-material/RateReview";
 import BackHandIcon from "@mui/icons-material/BackHand";
-
+import { Button } from "@mui/material";
 const drawerWidth = 240;
 function ResponsiveDrawer(props) {
   const { window } = props;
@@ -98,6 +98,11 @@ function ResponsiveDrawer(props) {
           <Typography variant="h7" noWrap sx={{ flexGrow: 1, color: "#fff" }}>
             QUALITY FORUM
           </Typography>
+          <Button 
+          sx={{ 
+            color:"whitesmoke"
+          }}>Logout <LogoutIcon/> 
+          </Button>
         </Toolbar>
       </AppBar>
       <Box

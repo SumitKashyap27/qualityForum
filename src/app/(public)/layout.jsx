@@ -1,6 +1,7 @@
 "use client";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
+import Loader from "../Components/Loader";
 
 export default function RootLayout({ children }) {
   const { data, status } = useSession();

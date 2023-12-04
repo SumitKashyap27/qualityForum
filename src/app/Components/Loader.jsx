@@ -13,7 +13,7 @@ export default function Loader() {
         minHeight: "100vh",
       }}
     >
-      <CircularProgress sx={{ color: "whitesmoke" }} />
+      <CircularProgress sx={{ color: "black" }} />
     </Box>
   );
 }

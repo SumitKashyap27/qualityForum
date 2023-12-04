@@ -1,5 +1,5 @@
-"use client"
-import React, { useState } from "react";
+"use client";
+import React, { useState, useEffect } from "react";
 
 const plans = [
   {
@@ -47,7 +47,7 @@ const ViewDashboard = (props) => {
 
     fetchData();
   }, []);
-  
+
   return (
     <main>
       <header className=" bg-opacity-60 self-stretch flex flex-col mb-1 pb-24 px-5 max-md:max-w-full">

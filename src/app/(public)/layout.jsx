@@ -6,7 +6,7 @@ export default function RootLayout({ children }) {
   const { data, status } = useSession();
   console.log(status);
   if (status === "loading") {
-    return <>Loading</>;
+    return <Loader />;
   }
   if (status === "authenticated") {
     redirect("/dashboard");

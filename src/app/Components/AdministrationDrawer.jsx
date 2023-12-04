@@ -24,7 +24,8 @@ import ViewIssues from "./ViewIssues";
 import SysAdminView from "./SysAdminView";
 import StudentFeedback from "./StudentFeedback";
 import RaiseAIssue from "./RiseAIssue";
-
+import { Button } from "@mui/material";
+import { signOut } from "next-auth/react";
 const drawerWidth = 240;
 
 function AdministrationDrawer(props) {
@@ -101,6 +102,14 @@ function AdministrationDrawer(props) {
           <Typography variant="h8" noWrap sx={{ flexGrow: 1, color: "#fff" }}>
             WELCOME TO QUALITY FORUM
           </Typography>
+          <Button
+            onClick={signOut}
+            sx={{
+              color: "whitesmoke",
+            }}
+          >
+            Logout
+          </Button>
         </Toolbar>
       </AppBar>
       <Box

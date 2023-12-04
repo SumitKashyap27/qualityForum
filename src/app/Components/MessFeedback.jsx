@@ -1,8 +1,9 @@
-"use client"
+"use client";
 import React, { useState, useEffect } from "react";
 import Rating from "@mui/material/Rating";
 import { Disclosure } from "@headlessui/react";
 import { ChevronUpIcon } from "@heroicons/react/20/solid";
+import { Button } from "@mui/material";
 
 const MessFeedback = () => {
   const daysOfWeek = [
@@ -36,11 +37,11 @@ const MessFeedback = () => {
     daysOfWeek.forEach((day) => logRatings(day));
   }, [ratings]);
 
-      // Function to handle the submit button click
-      const handleSubmit = () => {
-        // You can perform any additional logic here before logging the ratings
-        logRatings();
-      };
+  // Function to handle the submit button click
+  const handleSubmit = () => {
+    // You can perform any additional logic here before logging the ratings
+    logRatings();
+  };
   return (
     <section className="self-center w-full mt-10 max-md:max-w-full max-md:mt-8">
       <div className="flex h-[420px] max-md:flex-col max-md:items-stretch max-md:gap-0">
@@ -115,13 +116,14 @@ const MessFeedback = () => {
           </div>
         </div>
       </div>
-      <Button 
-      style={{ 
-        float: "right",
-        marginTop:"20px"
-      }} 
-      variant="contained"
-      onClick={handleSubmit}
+      <Button
+        style={{
+          float: "right",
+          marginTop: "20px",
+        }}
+        variant="contained"
+        onClick={handleSubmit}
+        className="bg-blue-700 hover:bg-blue-700"
       >
         Submit
       </Button>

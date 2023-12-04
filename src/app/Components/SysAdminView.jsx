@@ -1,139 +1,38 @@
 "use client"
-import React from "react";
-import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import Container from "@mui/material/Container";
-import { Typography } from "@mui/material";
+import React from 'react';
 
-const AddStudent = (props) => {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
-  };
-
+const SysAdminView = (props) => {
   return (
-    <main>
-      <header className="bg-sky-100 bg-opacity-60 self-stretch flex flex-col mb-1 pb-24 px-5 max-md:max-w-full">
-        <section className="self-center w-full mt-4 max-md:max-w-full max-md:mt-2">
-          <div className="flex w-full grow flex-col flex-1 mx-auto px-3 py-6 rounded-xl max-md:mt-2 bg-white text-black">
-            <h2 className="text-4xl text-center mb-4">
-              Add Students
-            </h2>
+    <div className="flex flex-col items-center">
+      <div className="w-full flex flex-col items-center max-container-width  mb-20 max-md:max-w-full max-md:my-10">
+        <div className="flex w-full gap-2 max-md:flex-col max-md:items-stretch max-md:gap-0">
+          <div className="flex flex-col items-stretch border rounded-xl border-solid border-black w-[59%] max-md:w-full max-md:ml-0">
+            <div className="flex grow flex-col items-stretch max-md:max-w-full max-md:mt-8">
+              <div className=" pl-9 flex-col text-black text-3xl shadow-sm bg-white rounded-xl leading-9 relative fill-white overflow-hidden min-h-[662px] w-full items-center pr-5 pt-8 pb-[478px] max-md:max-w-full max-md:pb-10">
+                INTERNET
+              </div>
+            </div>
           </div>
-        </section>
-        <section>
-          <div>
-            <Container component="main">
-              <CssBaseline />
-              <Box className="mt-10 flex flex-col justify-center items-center">
-                <Box
-                  component="form"
-                  noValidate
-                  onSubmit={handleSubmit}
-                  sx={{ mt: 3 }}
-                >
-                  <Grid container spacing={2}>
-                    <Grid item xs={12} sm={6}>
-                      <Typography>Name</Typography>
-                      <TextField
-                        autoComplete="given-name"
-                        name="Name"
-                        required
-                        fullWidth
-                        id="Name"
-                        label="Name"
-                        autoFocus
-                      />
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                      <Typography>Father Name</Typography>
-                      <TextField
-                        required
-                        fullWidth
-                        id="fathername"
-                        label="Father Name"
-                        name="fathername"
-                        autoComplete="family-name"
-                      />
-                    </Grid>
-                    <Grid item xs={12} sm={3}>
-                      <Typography>Hostel Name</Typography>
-                      <TextField
-                        required
-                        fullWidth
-                        id="hostelname"
-                        label="Hostel Name"
-                        name="hostelname"
-                        autoComplete="hostelname"
-                      />
-                    </Grid>
-                    <Grid item xs={12} sm={3}>
-                      <Typography>Room Number</Typography>
-                      <TextField
-                        required
-                        fullWidth
-                        name="roomnumber"
-                        label="Room Number"
-                        id="roomnumber"
-                        autoComplete="roomnumber"
-                      />
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                      <Typography>College Id</Typography>
-                      <TextField
-                        required
-                        fullWidth
-                        name="CollegeId"
-                        label="College Id"
-                        id="CollegeId"
-                        autoComplete="CollegeId"
-                      />
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                      <Typography>Phone Number</Typography>
-                      <TextField
-                        required
-                        fullWidth
-                        name="phonenumber"
-                        label="Phone Number"
-                        id="phonenumber"
-                        autoComplete="phonenumber"
-                      />
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                      <Typography> Father Phone Number</Typography>
-                      <TextField
-                        required
-                        fullWidth
-                        name="phonenumber"
-                        label=" Father Phone Number"
-                        id="phonenumber"
-                        autoComplete="phonenumber"
-                      />
-                    </Grid>
-                  </Grid>
-                  <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    sx={{ mt: 3, mb: 2 }}
-                  >
-                    Register
-                  </Button>
-                </Box>
-              </Box>
-            </Container>
+          <div className="flex flex-col items-stretch w-[41%] ml-5 max-md:w-full max-md:ml-0">
+            <div className="flex grow flex-col items-stretch  max-md:max-w-full max-md:mt-10">
+              <div className="border shadow-sm bg-white flex flex-col items-stretch px-9 py-3.5 rounded-xl border-solid border-black max-md:max-w-full max-md:px-5">
+                <div className="text-neutral-700 text-xl leading-7 max-md:max-w-full">
+                  Stats
+                </div>
+                <div className="bg-zinc-300 flex shrink-0 h-[159px] flex-col mt-2 rounded-sm max-md:max-w-full" />
+              </div>
+              <div className="border shadow-sm bg-white flex flex-col items-stretch mt-12 pl-9 pr-8 py-8 rounded-xl border-solid border-black max-md:max-w-full max-md:mt-10 max-md:px-5">
+                <div className="text-neutral-700 text-xl leading-7 max-md:max-w-full">
+                  Comments
+                </div>
+                <div className="bg-zinc-300 flex shrink-0 h-[305px] flex-col mt-6 rounded-sm max-md:max-w-full" />
+              </div>
+            </div>
           </div>
-        </section>
-      </header>
-    </main>
+        </div>
+      </div>
+    </div>
   );
 };
-export default AddStudent;
+
+export default SysAdminView;

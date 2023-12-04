@@ -1,5 +1,5 @@
-"use client"
-import React,{useState} from "react"; 
+"use client";
+import React, { useState } from "react";
 
 const plans = [
   {
@@ -22,9 +22,8 @@ const plans = [
   },
 ];
 
-export default function Example() {
+export default function ViewIssues() {
   const [selectedPlans, setSelectedPlans] = useState([]);
-
 
   const togglePlan = (plan) => {
     if (selectedPlans.includes(plan)) {
@@ -36,10 +35,8 @@ export default function Example() {
 
   return (
     <>
-      <h1 className="flex items-center text-4xl">
-        View Issues of Students
-      </h1>
-      <div className="grid justify-center items-center grid-cols-2 gap-4 px-4 py-10 mx-auto"  >
+      <h1 className="flex items-center text-4xl">View Issues of Students</h1>
+      <div className="grid justify-center items-center grid-cols-2 gap-4 px-4 py-10 mx-auto">
         {plans.map((plan) => (
           <React.Fragment key={plan.name}>
             <div
@@ -66,20 +63,19 @@ export default function Example() {
                   </div>
                 </div>
                 {selectedPlans.includes(plan) && (
-                  <div className="shrink-0 text-white">
-                  </div>
+                  <div className="shrink-0 text-white"></div>
                 )}
               </div>
             </div>
             <div className="flex items-center">
               <button
-                onClick={() => ("Satisfied")}
+                onClick={() => "Satisfied"}
                 className="inline-flex items-center px-4 py-2 font-semibold tracking-tighter transition duration-500 ease-in-out transform bg-green-500 border rounded-lg text-md hover:text-white hover:bg-green-600 focus:shadow-outline"
               >
                 Resolved
               </button>
               <button
-                onClick={() =>("Unsatisfied")}
+                onClick={() => "Unsatisfied"}
                 className="inline-flex items-center px-4 py-2 font-semibold tracking-tighter transition duration-500 ease-in-out transform bg-red-500 border rounded-lg text-md hover:text-white hover:bg-red-600 focus:shadow-outline"
               >
                 Unresolved

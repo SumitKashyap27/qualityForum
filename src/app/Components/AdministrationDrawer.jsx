@@ -20,6 +20,7 @@ import AddBoxIcon from "@mui/icons-material/AddBox";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import ViewDashboard from "./ViewDashboard";
 import AddStudent from "./AddStudents";
+import ViewIssues from "./ViewIssues";
 
 const drawerWidth = 240;
 

@@ -29,8 +29,7 @@ import { signOut } from "next-auth/react";
 const drawerWidth = 240;
 
 function AdministrationDrawer(props) {
-  const { window, drawerValue } = props;
-  console.log(drawerValue);
+  const { window, drawerValue, role } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [currentTab, setCurrentTab] = React.useState("Dashboard");
 
@@ -100,7 +99,7 @@ function AdministrationDrawer(props) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h8" noWrap sx={{ flexGrow: 1, color: "#fff" }}>
-            WELCOME TO QUALITY FORUM
+            {role} DASHBOARD
           </Typography>
           <Button
             onClick={signOut}

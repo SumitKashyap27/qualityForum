@@ -108,6 +108,7 @@ const LaundryService = () => {
       }} 
       variant="contained"
       onClick={laundryRating}
+      className="bg-blue-700 hover:bg-blue-700"
       >
         Submit
       </Button>

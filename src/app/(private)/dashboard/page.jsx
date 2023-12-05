@@ -20,6 +20,7 @@ export default function Page() {
             data.user.role === element.role && (
               <AdministrationDrawer
                 key={index}
+                role={data.user.role}
                 drawerValue={dashboardArray[index]["drawer"]}
               />
             )

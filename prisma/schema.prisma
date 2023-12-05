@@ -27,6 +27,17 @@ model User {
   password      String
   createdAt     DateTime  @default(now())
   profile       Profile?
+  Issue         Issue[]
+}
+
+model Issue {
+  id        String   @id @default(cuid())
+  type      Issues
+  stars     String
+  comment   String
+  createdAt DateTime @default(now())
+  userId    String   @unique
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 enum Role {
@@ -35,4 +46,11 @@ enum Role {
   WARDEN
   SYSADMIN
   DSW
+}
+
+enum Issues {
+  MESS
+  SWEEPER
+  LAUNDRY
+  INTERNET
 }

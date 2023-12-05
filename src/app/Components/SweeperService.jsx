@@ -1,39 +1,43 @@
-"use client"
-import React,{useState} from "react";
+"use client";
+import React, { useState } from "react";
 import Rating from "@mui/material/Rating";
 import { Button } from "@mui/material";
 
 const SweeperService = () => {
-  const [behaviorRating, setBehaviorRating] = useState(1);
-  const [regularityRating, setRegularityRating] = useState(1);
-  const [cleanlinessRating, setCleanlinessRating] = useState(1);
+  const [ratings, setRatings] = useState({
+    behavior: { rating: 1, count: 0 },
+    regularity: { rating: 1, count: 0 },
+    cleanliness: { rating: 1, count: 0 },
+  });
 
-  const [behaviorRatingCount, setBehaviorRatingCount] = useState(0);
-  const [regularityRatingCount, setRegularityRatingCount] = useState(0);
-  const [cleanlinessRatingCount, setCleanlinessRatingCount] = useState(0);
+  const [comment, setComment] = useState("");
 
-  const handleBehaviorRatingChange = (event, newValue) => {
-    setBehaviorRating(newValue);
-    setBehaviorRatingCount((prevCount) => prevCount + 1);
+  const handleRatingChange = (category, newValue) => {
+    setRatings((prevRatings) => ({
+      ...prevRatings,
+      [category]: {
+        rating: newValue,
+        count: prevRatings[category].count + 1,
+      },
+    }));
   };
 
-  const handleRegularityRatingChange = (event, newValue) => {
-    setRegularityRating(newValue);
-    setRegularityRatingCount((prevCount) => prevCount + 1);
+  const handleCommentChange = (event) => {
+    setComment(event.target.value);
   };
 
-  const handleCleanlinessRatingChange = (event, newValue) => {
-    setCleanlinessRating(newValue);
-    setCleanlinessRatingCount((prevCount) => prevCount + 1);
+  const handleSubmit = () => {
+    const output = {
+      stars: {
+        Behavior: ratings.behavior.rating,
+        Regularity: ratings.regularity.rating,
+        Cleanliness: ratings.cleanliness.rating,
+      },
+      comment: comment,
+    };
+    console.log(output);
   };
 
-  // Log ratings to the console
-  const sweeperRating=()=>{
-    console.log('Behavior Rating:', behaviorRating, 'Count:', behaviorRatingCount);
-    console.log('Regularity Rating:', regularityRating, 'Count:', regularityRatingCount);
-    console.log('Cleanliness Rating:', cleanlinessRating, 'Count:', cleanlinessRatingCount);
-
-  }
   return (
     <section className="self-center w-full mt-10 max-md:max-w-full max-md:mt-8">
       <div className="flex max-md:flex-col max-md:items-stretch max-md:gap-0">
@@ -43,51 +47,56 @@ const SweeperService = () => {
               <div className="self-stretch flex flex-col">
                 <h3 className="text-neutral-700 text-xl mb-4">GIVE RATING</h3>
                 {/* Behavior Rating */}
-            <div className="relative inline-block text-left">
-              <div
-                variant="contained"
-                className="mr-3 md:mb-0 border font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center focus:outline-none focus-visible:ring focus-visible:ring-purple-500/75"
-              >
-                BEHAVIOR
-                <Rating
-                  name="behavior-rating"
-                  value={behaviorRating}
-                  onChange={handleBehaviorRatingChange}
-                />
-              </div>
-            </div>
+                <div className="relative inline-block text-left">
+                  <div
+                    variant="contained"
+                    className="mr-3 md:mb-0 border font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center focus:outline-none focus-visible:ring focus-visible:ring-purple-500/75"
+                  >
+                    BEHAVIOR
+                    <Rating
+                      name="behavior-rating"
+                      value={ratings.behavior.rating}
+                      onChange={(event, newValue) =>
+                        handleRatingChange("behavior", newValue)
+                      }
+                    />
+                  </div>
+                </div>
 
-            {/* Regularity Rating */}
-            <div className="relative inline-block text-left pt-2">
-              <div
-                variant="contained"
-                className="mr-3 md:mb-0 border font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center focus:outline-none focus-visible:ring focus-visible:ring-purple-500/75"
-              >
-                REGULARITY
-                <Rating
-                  name="regularity-rating"
-                  value={regularityRating}
-                  onChange={handleRegularityRatingChange}
-                />
-              </div>
-            </div>
+                {/* Regularity Rating */}
+                <div className="relative inline-block text-left pt-2">
+                  <div
+                    variant="contained"
+                    className="mr-3 md:mb-0 border font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center focus:outline-none focus-visible:ring focus-visible:ring-purple-500/75"
+                  >
+                    REGULARITY
+                    <Rating
+                      name="regularity-rating"
+                      value={ratings.regularity.rating}
+                      onChange={(event, newValue) =>
+                        handleRatingChange("regularity", newValue)
+                      }
+                    />
+                  </div>
+                </div>
 
-            {/* Cleanliness Rating */}
-            <div className="relative inline-block text-left pt-2">
-              <div
-                variant="contained"
-                color="primary"
-                className="mr-3 border md:mb-0 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center focus-visible:ring focus-visible:ring-purple-500/75"
-              >
-                CLEANLINESS
-                <Rating
-                  name="cleanliness-rating"
-                  value={cleanlinessRating}
-                  onChange={handleCleanlinessRatingChange}
-                />
-              </div>
-            </div>
-
+                {/* Cleanliness Rating */}
+                <div className="relative inline-block text-left pt-2">
+                  <div
+                    variant="contained"
+                    color="primary"
+                    className="mr-3 border md:mb-0 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center focus-visible:ring focus-visible:ring-purple-500/75"
+                  >
+                    CLEANLINESS
+                    <Rating
+                      name="cleanliness-rating"
+                      value={ratings.cleanliness.rating}
+                      onChange={(event, newValue) =>
+                        handleRatingChange("cleanliness", newValue)
+                      }
+                    />
+                  </div>
+                </div>
               </div>
             </div>
           </form>
@@ -101,6 +110,8 @@ const SweeperService = () => {
                   className="w-full p-3 border rounded border-gray-300 focus:outline-none focus:ring focus:ring-blue-300"
                   rows="6"
                   placeholder="Enter your comment/suggestion here"
+                  value={comment}
+                  onChange={handleCommentChange}
                 ></textarea>
               </div>
             </div>
@@ -108,17 +119,18 @@ const SweeperService = () => {
         </div>
       </div>
       <Button
-      style={{ 
-        float: "right",
-        marginTop:"20px"
-      }} 
-      variant="contained"
-      onClick={sweeperRating}
-      className="bg-blue-700 hover:bg-blue-700"
+        style={{
+          float: "right",
+          marginTop: "20px",
+        }}
+        variant="contained"
+        onClick={handleSubmit}
+        className="bg-blue-700 hover:bg-blue-700"
       >
         Submit
       </Button>
     </section>
   );
 };
+
 export default SweeperService;

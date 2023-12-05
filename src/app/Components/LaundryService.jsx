@@ -1,40 +1,43 @@
-"use client"
-import React,{useState} from "react";
+"use client";
+import React, { useState } from "react";
 import Rating from "@mui/material/Rating";
 import { Button } from "@mui/material";
 
 const LaundryService = () => {
-  const [machineConditionRating, setMachineConditionRating] = useState(1);
-  const [cleanlinessRating, setCleanlinessRating] = useState(1);
-  const [availabilityAccessibilityRating, setAvailabilityAccessibilityRating] = useState(1);
+  const [ratings, setRatings] = useState({
+    machineCondition: { rating: 1, count: 0 },
+    cleanliness: { rating: 1, count: 0 },
+    availabilityAccessibility: { rating: 1, count: 0 },
+  });
 
-  const [machineConditionRatingCount, setMachineConditionRatingCount] = useState(0);
-  const [cleanlinessRatingCount, setCleanlinessRatingCount] = useState(0);
-  const [availabilityAccessibilityRatingCount, setAvailabilityAccessibilityRatingCount] = useState(0);
+  const [comment, setComment] = useState("");
 
-  const handleMachineConditionRatingChange = (_, newValue) => {
-    setMachineConditionRating(newValue);
-    setMachineConditionRatingCount((prevCount) => prevCount + 1);
+  const handleRatingChange = (category, newValue) => {
+    setRatings((prevRatings) => ({
+      ...prevRatings,
+      [category]: {
+        rating: newValue,
+        count: prevRatings[category].count + 1,
+      },
+    }));
   };
 
-  const handleCleanlinessRatingChange = (_, newValue) => {
-    setCleanlinessRating(newValue);
-    setCleanlinessRatingCount((prevCount) => prevCount + 1);
+  const handleCommentChange = (event) => {
+    setComment(event.target.value);
   };
 
-  const handleAvailabilityAccessibilityRatingChange = (_, newValue) => {
-    setAvailabilityAccessibilityRating(newValue);
-    setAvailabilityAccessibilityRatingCount((prevCount) => prevCount + 1);
+  const handleSubmit = () => {
+    const output = {
+      stars: {
+        "Machine Condition": ratings.machineCondition.rating,
+        Cleanliness: ratings.cleanliness.rating,
+        "Availability & Accessibility":
+          ratings.availabilityAccessibility.rating,
+      },
+      comment: comment,
+    };
+    console.log(output);
   };
-
-  // Log ratings to the console
-  const laundryRating=()=>{
-    console.log('Machine Condition Rating:', machineConditionRating, 'Count:', machineConditionRatingCount);
-    console.log('Cleanliness Rating:', cleanlinessRating, 'Count:', cleanlinessRatingCount);
-    console.log('Availability & Accessibility Rating:', availabilityAccessibilityRating, 'Count:', availabilityAccessibilityRatingCount);
-
-  }
-
 
   return (
     <section className="self-center w-full mt-10 max-md:max-w-full max-md:mt-8">
@@ -44,18 +47,24 @@ const LaundryService = () => {
             <div className="flex w-[336px] max-w-full items-start gap-5 ml-4 self-start max-md:ml-2.5">
               <div className="self-stretch flex flex-col">
                 <h3 className="text-neutral-700 text-xl mb-4">GIVE RATING</h3>
+                {/* Machine Condition Rating */}
                 <div className="relative inline-block text-left">
                   <div
                     variant="contained"
-                    className="mr-3 mb-3 md:mb-0 focus:outline-none border solid focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center">
+                    className="mr-3 mb-3 md:mb-0 focus:outline-none border solid focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center"
+                  >
                     MACHINE CONDITION
                     <Rating
                       name="machine-condition-rating"
-                      value={machineConditionRating}
-                      onChange={handleMachineConditionRatingChange}
+                      value={ratings.machineCondition.rating}
+                      onChange={(event, newValue) =>
+                        handleRatingChange("machineCondition", newValue)
+                      }
                     />
                   </div>
                 </div>
+
+                {/* Cleanliness Rating */}
                 <div className="relative inline-block text-left pt-2">
                   <div
                     variant="contained"
@@ -64,11 +73,15 @@ const LaundryService = () => {
                     CLEANLINESS
                     <Rating
                       name="cleanliness-rating"
-                      value={cleanlinessRating}
-                      onChange={handleCleanlinessRatingChange}
+                      value={ratings.cleanliness.rating}
+                      onChange={(event, newValue) =>
+                        handleRatingChange("cleanliness", newValue)
+                      }
                     />
                   </div>
                 </div>
+
+                {/* Availability & Accessibility Rating */}
                 <div className="relative inline-block text-left pt-2">
                   <div
                     variant="contained"
@@ -77,8 +90,13 @@ const LaundryService = () => {
                     AVAILABILITY & ACCESSIBILITY
                     <Rating
                       name="availability-accessibility-rating"
-                      value={availabilityAccessibilityRating}
-                      onChange={handleAvailabilityAccessibilityRatingChange}
+                      value={ratings.availabilityAccessibility.rating}
+                      onChange={(event, newValue) =>
+                        handleRatingChange(
+                          "availabilityAccessibility",
+                          newValue
+                        )
+                      }
                     />
                   </div>
                 </div>
@@ -95,24 +113,27 @@ const LaundryService = () => {
                   className="w-full p-3 border rounded border-gray-300 focus:outline-none focus:ring focus:ring-blue-300"
                   rows="6"
                   placeholder="Enter your comment/suggestion here"
+                  value={comment}
+                  onChange={handleCommentChange}
                 ></textarea>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <Button 
-      style={{ 
-        float: "right",
-        marginTop:"20px"
-      }} 
-      variant="contained"
-      onClick={laundryRating}
-      className="bg-blue-700 hover:bg-blue-700"
+      <Button
+        style={{
+          float: "right",
+          marginTop: "20px",
+        }}
+        variant="contained"
+        onClick={handleSubmit}
+        className="bg-blue-700 hover:bg-blue-700"
       >
         Submit
       </Button>
     </section>
   );
 };
+
 export default LaundryService;

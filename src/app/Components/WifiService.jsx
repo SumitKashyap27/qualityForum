@@ -1,40 +1,44 @@
-"use client"
+"use client";
 
-import React,{useState} from "react";
+import React, { useState } from "react";
 import Rating from "@mui/material/Rating";
 import { Button } from "@mui/material";
 
 const WifiService = () => {
+  const [ratings, setRatings] = useState({
+    speed: { rating: 1, count: 0 },
+    connectivity: { rating: 1, count: 0 },
+    range: { rating: 1, count: 0 },
+  });
 
-  const [speedRating, setSpeedRating] = useState(1);
-  const [connectivityRating, setConnectivityRating] = useState(1);
-  const [rangeRating, setRangeRating] = useState(1);
-  
-  const [speedRatingCount, setSpeedRatingCount] = useState(0);
-  const [connectivityRatingCount, setConnectivityRatingCount] = useState(0);
-  const [rangeRatingCount, setRangeRatingCount] = useState(0);
-  
-  const handleSpeedRatingChange = (event, newValue) => {
-    setSpeedRating(newValue);
-    setSpeedRatingCount((prevCount) => prevCount + 1);
+  const [comment, setComment] = useState("");
+
+  const handleRatingChange = (category, newValue) => {
+    setRatings((prevRatings) => ({
+      ...prevRatings,
+      [category]: {
+        rating: newValue,
+        count: prevRatings[category].count + 1,
+      },
+    }));
   };
-  
-  const handleConnectivityRatingChange = (event, newValue) => {
-      setConnectivityRating(newValue);
-    setConnectivityRatingCount((prevCount) => prevCount + 1);
+
+  const handleCommentChange = (event) => {
+    setComment(event.target.value);
   };
-  
-  const handleRangeRatingChange = (event, newValue) => {
-    setRangeRating(newValue);
-    setRangeRatingCount((prevCount) => prevCount + 1);
+
+  const handleSubmit = () => {
+    const output = {
+      stars: {
+        Speed: ratings.speed.rating,
+        Connectivity: ratings.connectivity.rating,
+        Range: ratings.range.rating,
+      },
+      comment: comment,
+    };
+    console.log(output);
   };
-  
-  // Log ratings to the console
-  const wifiRating=()=>{
-    console.log('Speed Rating:', speedRating, 'Count:', speedRatingCount);
-    console.log('Connectivity Rating:', connectivityRating, 'Count:', connectivityRatingCount);
-    console.log('Range Rating:', rangeRating, 'Count:', rangeRatingCount);
-  }
+
   return (
     <section className="self-center w-full mt-10 max-md:max-w-full max-md:mt-8">
       <div className="flex max-md:flex-col max-md:items-stretch max-md:gap-0">
@@ -43,39 +47,53 @@ const WifiService = () => {
             <div className="flex w-[336px] max-w-full items-start gap-5 ml-4 self-start max-md:ml-2.5">
               <div className="self-stretch flex flex-col">
                 <h3 className="text-neutral-700 text-xl mb-4">GIVE RATING</h3>
+                {/* Speed Rating */}
                 <div className="relative inline-block text-left">
                   <div
-                  variant="contained"
-                  className="mr-3 mb-3 md:mb-0 focus:outline-none border solid focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center">
+                    variant="contained"
+                    className="mr-3 mb-3 md:mb-0 focus:outline-none border solid focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center"
+                  >
                     SPEED
                     <Rating
                       name="speed-rating"
-                      value={speedRating}
-                      onChange={handleSpeedRatingChange}
+                      value={ratings.speed.rating}
+                      onChange={(event, newValue) =>
+                        handleRatingChange("speed", newValue)
+                      }
                     />
                   </div>
                 </div>
+
+                {/* Connectivity Rating */}
                 <div className="relative inline-block text-left pt-2">
-                <div
+                  <div
                     variant="contained"
-                    className="mr-3 mb-3 md:mb-0 focus:outline-none border solid focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center">
+                    className="mr-3 mb-3 md:mb-0 focus:outline-none border solid focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center"
+                  >
                     CONNECTIVITY
                     <Rating
                       name="connectivity-rating"
-                      value={connectivityRating}
-                      onChange={handleConnectivityRatingChange}
+                      value={ratings.connectivity.rating}
+                      onChange={(event, newValue) =>
+                        handleRatingChange("connectivity", newValue)
+                      }
                     />
                   </div>
                 </div>
+
+                {/* Range Rating */}
                 <div className="relative inline-block text-left pt-2">
-                <div
+                  <div
                     variant="contained"
-                    className="mr-3 mb-3 md:mb-0 focus:outline-none border solid focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center">
+                    className="mr-3 mb-3 md:mb-0 focus:outline-none border solid focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center"
+                  >
                     RANGE
                     <Rating
                       name="range-rating"
-                      value={rangeRating}
-                      onChange={handleRangeRatingChange}
+                      value={ratings.range.rating}
+                      onChange={(event, newValue) =>
+                        handleRatingChange("range", newValue)
+                      }
                     />
                   </div>
                 </div>
@@ -92,6 +110,8 @@ const WifiService = () => {
                   className="w-full p-3 border rounded border-gray-300 focus:outline-none focus:ring focus:ring-blue-300"
                   rows="6"
                   placeholder="Enter your comment/suggestion here"
+                  value={comment}
+                  onChange={handleCommentChange}
                 ></textarea>
               </div>
             </div>
@@ -99,17 +119,18 @@ const WifiService = () => {
         </div>
       </div>
       <Button
-      style={{ 
-        float: "right",
-        marginTop:"20px"
-      }} 
-      variant="contained"
-      onClick={wifiRating}
-      className="bg-blue-700 hover:bg-blue-700"
+        style={{
+          float: "right",
+          marginTop: "20px",
+        }}
+        variant="contained"
+        onClick={handleSubmit}
+        className="bg-blue-700 hover:bg-blue-700"
       >
         Submit
       </Button>
     </section>
   );
 };
+
 export default WifiService;

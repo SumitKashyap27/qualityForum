@@ -1,46 +1,45 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Rating from "@mui/material/Rating";
 import { Button } from "@mui/material";
 
 const MessFeedback = () => {
-  const [breakfastRating, setbreakfastRating] = useState(1);
-  const [lunchRating, setlunchRating] = useState(1);
-  const [snacksRating, setsnacksRating] = useState(1);
-  const [dinnerRating, setdinnerRating] = useState(1);
+  const [ratings, setRatings] = useState({
+    breakfast: { rating: 1, count: 0 },
+    lunch: { rating: 1, count: 0 },
+    snacks: { rating: 1, count: 0 },
+    dinner: { rating: 1, count: 0 },
+  });
 
-  const [breakfastRatingCount, setBreakfastRatingCount] = useState(0);
-  const [lunchRatingCount, setLunchRatingCount] = useState(0);
-  const [snacksRatingCount, setSnackRatingCount] = useState(0);
-  const [dinnerRatingCount, setDinnerRatingCount] = useState(0);
+  const [comment, setComment] = useState("");
 
-  const handleBreakfastRatingChange = (event, newValue) => {
-    setbreakfastRating(newValue);
-    setBreakfastRatingCount((prevCount) => prevCount + 1);
+  const handleRatingChange = (category, newValue) => {
+    setRatings((prevRatings) => ({
+      ...prevRatings,
+      [category]: {
+        rating: newValue,
+        count: prevRatings[category].count + 1,
+      },
+    }));
   };
 
-  const handleLunchRatingChange = (event, newValue) => {
-    setlunchRating(newValue);
-    setLunchRatingCount((prevCount) => prevCount + 1);
+  const handleCommentChange = (event) => {
+    setComment(event.target.value);
   };
 
-  const handleSnackRatingChange = (event, newValue) => {
-    setsnacksRating(newValue);
-    setSnackRatingCount((prevCount) => prevCount + 1);
-  };
-  const handleDinnerRatingChange = (event, newValue) => {
-    setdinnerRating(newValue);
-    setDinnerRatingCount((prevCount) => prevCount + 1);
+  const handleSubmit = () => {
+    const output = {
+      stars: {
+        BREAKFAST: ratings.breakfast.rating,
+        LUNCH: ratings.lunch.rating,
+        SNACKS: ratings.snacks.rating,
+        DINNER: ratings.dinner.rating,
+      },
+      comment: comment,
+    };
+    console.log(output);
   };
 
-  // Log ratings to the console
-  const sweeperRating=()=>{
-    console.log('breakfast Rating:', breakfastRating, 'Count:', breakfastRatingCount);
-    console.log('lunch Rating:', lunchRating, 'Count:', lunchRatingCount);
-    console.log('snacks Rating:', snacksRating, 'Count:', snacksRatingCount);
-    console.log('dinner Rating:', dinnerRating, 'Count:', dinnerRatingCount);
-
-  }
   return (
     <section className="self-center w-full mt-10 max-md:max-w-full max-md:mt-8">
       <div className="flex max-md:flex-col max-md:items-stretch max-md:gap-0">
@@ -49,64 +48,75 @@ const MessFeedback = () => {
             <div className="flex w-[336px] max-w-full items-start gap-5 ml-4 self-start max-md:ml-2.5">
               <div className="self-stretch flex flex-col">
                 <h3 className="text-neutral-700 text-xl mb-4">GIVE RATING</h3>
-            <div className="relative inline-block text-left">
-              <div
-                variant="contained"
-                className="mr-3 md:mb-0 border font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center focus:outline-none focus-visible:ring focus-visible:ring-purple-500/75"
-              >
-                BREAKFAST
-                <Rating
-                  name="breakfast-rating"
-                  value={breakfastRating}
-                  onChange={handleBreakfastRatingChange}
-                />
-              </div>
-            </div>
+                {/* BREAKFAST Rating */}
+                <div className="relative inline-block text-left">
+                  <div
+                    variant="contained"
+                    className="mr-3 md:mb-0 border font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center focus:outline-none focus-visible:ring focus-visible:ring-purple-500/75"
+                  >
+                    BREAKFAST
+                    <Rating
+                      name="breakfast-rating"
+                      value={ratings.breakfast.rating}
+                      onChange={(event, newValue) =>
+                        handleRatingChange("breakfast", newValue)
+                      }
+                    />
+                  </div>
+                </div>
 
-            <div className="relative inline-block text-left pt-2">
-              <div
-                variant="contained"
-                className="mr-3 md:mb-0 border font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center focus:outline-none focus-visible:ring focus-visible:ring-purple-500/75"
-              >
-                LUNCH
-                <Rating
-                  name="lunch-rating"
-                  value={lunchRating}
-                  onChange={handleLunchRatingChange}
-                />
-              </div>
-            </div>
+                {/* LUNCH Rating */}
+                <div className="relative inline-block text-left pt-2">
+                  <div
+                    variant="contained"
+                    className="mr-3 md:mb-0 border font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center focus:outline-none focus-visible:ring focus-visible:ring-purple-500/75"
+                  >
+                    LUNCH
+                    <Rating
+                      name="lunch-rating"
+                      value={ratings.lunch.rating}
+                      onChange={(event, newValue) =>
+                        handleRatingChange("lunch", newValue)
+                      }
+                    />
+                  </div>
+                </div>
 
-            {/* Cleanliness Rating */}
-            <div className="relative inline-block text-left pt-2">
-              <div
-                variant="contained"
-                color="primary"
-                className="mr-3 border md:mb-0 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center focus-visible:ring focus-visible:ring-purple-500/75"
-              >
-                SNACKS
-                <Rating
-                  name="snacks-rating"
-                  value={snacksRating}
-                  onChange={handleSnackRatingChange}
-                />
-              </div>
-            </div>
-            <div className="relative inline-block text-left pt-2">
-              <div
-                variant="contained"
-                color="primary"
-                className="mr-3 border md:mb-0 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center focus-visible:ring focus-visible:ring-purple-500/75"
-              >
-                DINNER
-                <Rating
-                  name="dinner-rating"
-                  value={dinnerRating}
-                  onChange={handleDinnerRatingChange}
-                />
-              </div>
-            </div>
+                {/* SNACKS Rating */}
+                <div className="relative inline-block text-left pt-2">
+                  <div
+                    variant="contained"
+                    color="primary"
+                    className="mr-3 border md:mb-0 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center focus-visible:ring focus-visible:ring-purple-500/75"
+                  >
+                    SNACKS
+                    <Rating
+                      name="snacks-rating"
+                      value={ratings.snacks.rating}
+                      onChange={(event, newValue) =>
+                        handleRatingChange("snacks", newValue)
+                      }
+                    />
+                  </div>
+                </div>
 
+                {/* DINNER Rating */}
+                <div className="relative inline-block text-left pt-2">
+                  <div
+                    variant="contained"
+                    color="primary"
+                    className="mr-3 border md:mb-0 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center focus-visible:ring focus-visible:ring-purple-500/75"
+                  >
+                    DINNER
+                    <Rating
+                      name="dinner-rating"
+                      value={ratings.dinner.rating}
+                      onChange={(event, newValue) =>
+                        handleRatingChange("dinner", newValue)
+                      }
+                    />
+                  </div>
+                </div>
               </div>
             </div>
           </form>
@@ -120,6 +130,8 @@ const MessFeedback = () => {
                   className="w-full p-3 border rounded border-gray-300 focus:outline-none focus:ring focus:ring-blue-300"
                   rows="6"
                   placeholder="Enter your comment/suggestion here"
+                  value={comment}
+                  onChange={handleCommentChange}
                 ></textarea>
               </div>
             </div>
@@ -127,13 +139,13 @@ const MessFeedback = () => {
         </div>
       </div>
       <Button
-      style={{ 
-        float: "right",
-        marginTop:"20px"
-      }} 
-      variant="contained"
-      onClick={sweeperRating}
-      className="bg-blue-700 hover:bg-blue-700"
+        style={{
+          float: "right",
+          marginTop: "20px",
+        }}
+        variant="contained"
+        onClick={handleSubmit}
+        className="bg-blue-700 hover:bg-blue-700"
       >
         Submit
       </Button>

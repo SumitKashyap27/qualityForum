@@ -3,8 +3,10 @@
 import React, { useState } from "react";
 import Rating from "@mui/material/Rating";
 import { Button } from "@mui/material";
+import { useSession } from "next-auth/react";
 
 const WifiService = () => {
+  const { data } = useSession();
   const [ratings, setRatings] = useState({
     speed: { rating: 1, count: 0 },
     connectivity: { rating: 1, count: 0 },

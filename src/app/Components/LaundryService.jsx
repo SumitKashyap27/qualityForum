@@ -2,8 +2,10 @@
 import React, { useState } from "react";
 import Rating from "@mui/material/Rating";
 import { Button } from "@mui/material";
+import { useSession } from "next-auth/react";
 
 const LaundryService = () => {
+  const { data } = useSession();
   const [ratings, setRatings] = useState({
     machineCondition: { rating: 1, count: 0 },
     cleanliness: { rating: 1, count: 0 },

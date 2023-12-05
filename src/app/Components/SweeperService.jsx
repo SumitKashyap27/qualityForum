@@ -2,8 +2,10 @@
 import React, { useState } from "react";
 import Rating from "@mui/material/Rating";
 import { Button } from "@mui/material";
+import { useSession } from "next-auth/react";
 
 const SweeperService = () => {
+  const { data } = useSession();
   const [ratings, setRatings] = useState({
     behavior: { rating: 1, count: 0 },
     regularity: { rating: 1, count: 0 },

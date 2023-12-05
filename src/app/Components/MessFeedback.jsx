@@ -2,8 +2,10 @@
 import React, { useState } from "react";
 import Rating from "@mui/material/Rating";
 import { Button } from "@mui/material";
+import { useSession } from "next-auth/react";
 
 const MessFeedback = () => {
+  const { data } = useSession();
   const [ratings, setRatings] = useState({
     breakfast: { rating: 1, count: 0 },
     lunch: { rating: 1, count: 0 },

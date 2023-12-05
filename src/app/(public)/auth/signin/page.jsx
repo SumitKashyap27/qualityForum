@@ -49,7 +49,7 @@ function Page() {
                 alt="Student"
                 className="pb-7 pt-10 block w-40 h-auto mx-auto"
               />
-              <h2 className="text-black text-3xl self-center">Student Login</h2>
+              <h2 className="text-black text-3xl self-center">Welcome To Quality Forum</h2>
             </div>
           </div>
         </div>
@@ -85,7 +85,7 @@ function Page() {
                         variant="contained"
                         className="rounded shadow-[0px_4px_4px_0px_rgba(0,0,0,0.30)] bg-sky-700 flex w-full flex-col mt-4"
                       >
-                        Login
+                        Sign in
                       </Button>
                     </a>
                   </div>

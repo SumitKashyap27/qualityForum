@@ -114,6 +114,7 @@ const SweeperService = () => {
       }} 
       variant="contained"
       onClick={sweeperRating}
+      className="bg-blue-700 hover:bg-blue-700"
       >
         Submit
       </Button>

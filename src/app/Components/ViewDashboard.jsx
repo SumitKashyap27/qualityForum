@@ -25,7 +25,6 @@ const plans = [
 const ViewDashboard = (props) => {
   const [selectedPlans, setSelectedPlans] = useState([]);
   const [comments, setComments] = useState([]);
-
   const togglePlan = (plan) => {
     if (selectedPlans.includes(plan)) {
       setSelectedPlans(selectedPlans.filter((selected) => selected !== plan));

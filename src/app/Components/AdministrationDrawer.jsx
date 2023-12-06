@@ -26,17 +26,62 @@ import StudentFeedback from "./StudentFeedback";
 import RaiseAIssue from "./RiseAIssue";
 import { Button } from "@mui/material";
 import { signOut } from "next-auth/react";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import { Pie } from "react-chartjs-2";
+import axios from "axios";
 const drawerWidth = 240;
-
+ChartJS.register(ArcElement, Tooltip, Legend);
 function AdministrationDrawer(props) {
   const { window, drawerValue, role } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [currentTab, setCurrentTab] = React.useState("Dashboard");
-
+  const [reviews, setReviews] = React.useState([]);
+  const [messData, setMessData] = React.useState(null);
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+  React.useEffect(() => {
+    (async () => {
+      const { data: response } = await axios.get("/api/issue");
+      if (response.data) {
+        const messReview = response.data.filter((element) => {
+          return element.type === "MESS";
+        });
+        const internetReview = response.data.filter((element) => {
+          return element.type === "INTERNET";
+        });
+        const sweeperReview = response.data.filter((element) => {
+          return element.type === "SWEEPER";
+        });
+        const laundryReview = response.data.filter((element) => {
+          return element.type === "LAUNDRY";
+        });
+        const finalData = {
+          MESS: messReview,
+          INTERNET: internetReview,
+          SWEEPER: sweeperReview,
+          LAUNDRY: laundryReview,
+        };
+        const messData = {
+          labels: Object.keys(JSON.parse(finalData.MESS[0].stars)),
 
+          datasets: [
+            {
+              label: "Mess Review",
+              data: finalData.MESS.map((element) => {
+                return Object.values(JSON.parse(element.stars));
+              })[0],
+              backgroundColor: ["red", "blue", "yellow", "green"],
+              borderWidth: 1,
+            },
+          ],
+        };
+        setMessData(messData);
+        setReviews(finalData);
+      }
+    })();
+  }, []);
+  console.log(reviews.MESS);
   const drawer = (
     <div>
       <Toolbar />
@@ -156,7 +201,6 @@ function AdministrationDrawer(props) {
         }}
       >
         <Toolbar />
-        {currentTab === "Dashboard" && <ViewDashboard />}
         {currentTab === "AddStudents" && <AddStudent />}
         {currentTab === "View Issues" && <ViewIssues />}
         {currentTab === "SysAdminView" && <SysAdminView />}

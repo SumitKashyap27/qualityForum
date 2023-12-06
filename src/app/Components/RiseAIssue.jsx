@@ -1,27 +1,30 @@
-"use client"
-import React,{useState} from "react"; 
-
+"use client";
+import React, { useState, useEffect } from "react";
 
 const plans = [
   {
-    name: "Food",
+    name: "FOOD",
   },
   {
-    name: "Medical",
+    name: "MEDICAL",
   },
   {
-    name: "Drinking Water",
+    name: "WATER",
   },
   {
-    name: "Toilets",
+    name: "TOILET",
   },
   {
-    name: "Gyms",
+    name: "GYM",
   },
 ];
 
 export default function RaiseAIssue() {
   const [selectedPlans, setSelectedPlans] = useState([]);
+  const [feedbackData, setFeedbackData] = useState({
+    type: null,
+    satisfied: null,
+  });
 
   const togglePlan = (plan) => {
     if (selectedPlans.includes(plan)) {
@@ -31,12 +34,18 @@ export default function RaiseAIssue() {
     }
   };
 
+  const handleFeedback = (feedbackType, isSatisfied) => {
+    setFeedbackData({
+      type: feedbackType,
+      satisfied: isSatisfied,
+    });
+    console.log(feedbackData);
+  };
+
   return (
     <>
-      <h1 className="flex items-center text-4xl">
-        Share your Issues
-      </h1>
-      <div className="grid justify-center items-center grid-cols-2 gap-4 px-4 py-10 mx-auto"  >
+      <h1 className="flex items-center text-4xl">Share your Issues</h1>
+      <div className="grid justify-center items-center grid-cols-2 gap-4 px-4 py-10 mx-auto">
         {plans.map((plan) => (
           <React.Fragment key={plan.name}>
             <div
@@ -59,24 +68,19 @@ export default function RaiseAIssue() {
                     >
                       {plan.name}
                     </p>
-                    {/* Description can be added here */}
                   </div>
                 </div>
-                {selectedPlans.includes(plan) && (
-                  <div className="shrink-0 text-white">
-                  </div>
-                )}
               </div>
             </div>
             <div className="flex items-center">
               <button
-                onClick={() =>("Satisfied")}
+                onClick={() => handleFeedback(plan.name, true)}
                 className="inline-flex items-center px-4 py-2 font-semibold tracking-tighter transition duration-500 ease-in-out transform bg-green-500 border rounded-lg text-md hover:text-white hover:bg-green-600 focus:shadow-outline"
               >
                 Satisfied
               </button>
               <button
-                onClick={() => ("Unsatisfied")}
+                onClick={() => handleFeedback(plan.name, false)}
                 className="inline-flex items-center px-4 py-2 font-semibold tracking-tighter transition duration-500 ease-in-out transform bg-red-500 border rounded-lg text-md hover:text-white hover:bg-red-600 focus:shadow-outline"
               >
                 Unsatisfied

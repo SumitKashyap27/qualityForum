@@ -28,6 +28,7 @@ model User {
   createdAt     DateTime  @default(now())
   profile       Profile?
   Issue         Issue[]
+  satisfaction Satisfaction[]
 }
 
 model Issue {
@@ -38,6 +39,22 @@ model Issue {
   createdAt DateTime @default(now())
   userId    String   
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Satisfaction {
+  id String @id @default(cuid())
+  type Problems
+  satisfied Boolean
+  userId String
+  user User @relation(fields: [userId],references: [id],onDelete: Cascade)
+}
+
+enum Problems {
+  FOOD
+  MEDICAL
+  WATER
+  TOILET
+  GYM
 }
 
 enum Role {

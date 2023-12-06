@@ -118,6 +118,28 @@ const AddStudent = (props) => {
                         autoComplete="phonenumber"
                       />
                     </Grid>
+                    <Grid item xs={12} sm={6}>
+                      <Typography>Add Password</Typography>
+                      <TextField
+                        required
+                        fullWidth
+                        name="password"
+                        label="Password"
+                        id="password"
+                        autoComplete="password"
+                      />
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                      <Typography>Repeat Password</Typography>
+                      <TextField
+                        required
+                        fullWidth
+                        name="repeatpassword"
+                        label="Repeat Password"
+                        id="repeatpassword"
+                        autoComplete="repeatpassword"
+                      />
+                    </Grid>
                   </Grid>
                   <Button
                     type="submit"

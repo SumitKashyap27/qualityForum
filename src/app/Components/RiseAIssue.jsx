@@ -18,9 +18,6 @@ const plans = [
   {
     name: "Gyms",
   },
-  {
-    name: "Others",
-  },
 ];
 
 export default function RaiseAIssue() {

@@ -35,6 +35,7 @@ export const authOptions = {
             id: user.id,
             collegeId: user.collegeId,
             role: user.role,
+            name: user.name,
           };
         } else {
           // If you return null then an error will be displayed advising the user to check their details.

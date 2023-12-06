@@ -1,6 +1,12 @@
 "use client";
 import React, { useState, useEffect } from "react";
-
+import {
+  InternetPieChart,
+  LaundryPieChart,
+  MessPieChart,
+  SweeperPieChart,
+} from "./Charts";
+import axios from "axios";
 const plans = [
   {
     name: "Food",
@@ -23,6 +29,7 @@ const plans = [
 ];
 
 const ViewDashboard = (props) => {
+  const { reviews } = props;
   const [selectedPlans, setSelectedPlans] = useState([]);
   const [comments, setComments] = useState([]);
   const togglePlan = (plan) => {
@@ -36,9 +43,8 @@ const ViewDashboard = (props) => {
     // Fetch comments from the server and update the state
     const fetchData = async () => {
       try {
-        const response = await fetch("your-server-endpoint");
-        const data = await response.json();
-        setComments(data.comments); // Assuming your server response has a 'comments' array
+        const { data } = await axios.get("/api/issue");
+        setComments(data.data); // Assuming your server response has a 'comments' array
       } catch (error) {
         console.error("Error fetching comments:", error);
       }
@@ -46,7 +52,7 @@ const ViewDashboard = (props) => {
 
     fetchData();
   }, []);
-
+  console.log(comments);
   return (
     <main>
       <header className=" bg-opacity-60 self-stretch flex flex-col mb-1 pb-24 px-5 max-md:max-w-full">
@@ -61,8 +67,11 @@ const ViewDashboard = (props) => {
                 <h2 className="text-black text-2xl self-center whitespace-nowrap">
                   MESS FOOD
                 </h2>
-                <div className="aspect-[1.41] object-contain object-center stroke-[1px] stroke-black overflow-hidden self-center max-w-full mt-4">
-                  graph of mess food
+                <div className="aspect-w-16 aspect-h-9 object-contain object-center overflow-hidden self-center mt-4">
+                  <p>Graph of mess food</p>
+                  {reviews.length !== 0 && (
+                    <MessPieChart MessData={reviews.MESS} />
+                  )}
                 </div>
               </button>
             </div>
@@ -75,8 +84,11 @@ const ViewDashboard = (props) => {
                 <h2 className="text-black text-2xl self-center whitespace-nowrap">
                   SWEEPER
                 </h2>
-                <div className="aspect-[1.41] object-contain object-center stroke-[1px] stroke-black overflow-hidden self-center max-w-full mt-4">
-                  graph of SweeperService
+                <div className="aspect-w-16 aspect-h-9 object-contain object-center overflow-hidden self-center mt-4">
+                  <p>Graph of Sweeper Service</p>
+                  {reviews.length !== 0 && (
+                    <SweeperPieChart Sweeper={reviews.SWEEPER} />
+                  )}
                 </div>
               </button>
             </div>
@@ -89,8 +101,11 @@ const ViewDashboard = (props) => {
                 <h2 className="text-black text-2xl self-center whitespace-nowrap">
                   LAUNDRY
                 </h2>
-                <div className="aspect-[1.41] object-contain object-center stroke-[1px] stroke-black overflow-hidden self-center max-w-full mt-4">
-                  graph of LaundryService
+                <div className="aspect-w-16 aspect-h-9 object-contain object-center overflow-hidden self-center mt-4">
+                  <p>Graph of Laundry Service</p>
+                  {reviews.length !== 0 && (
+                    <LaundryPieChart LaundryData={reviews.Laundry} />
+                  )}
                 </div>
               </button>
             </div>
@@ -103,8 +118,11 @@ const ViewDashboard = (props) => {
                 <h2 className="text-black text-2xl self-center whitespace-nowrap">
                   INTERNET
                 </h2>
-                <div className="aspect-[1.41] object-contain object-center stroke-[1px] stroke-black overflow-hidden self-center max-w-full mt-4">
-                  here the graph of internet will come
+                <div className="aspect-w-16 aspect-h-9 object-contain object-center overflow-hidden self-center mt-4">
+                  <p>Graph of Internet Service</p>
+                  {reviews.length !== 0 && (
+                    <InternetPieChart Internet={reviews.INTERNET} />
+                  )}
                 </div>
               </button>
             </div>
@@ -153,12 +171,17 @@ const ViewDashboard = (props) => {
                 </div>
               </div>
               <div className="grid col-span-1 md:col-span-1 flex-grow items-stretch ml-0 md:ml-5 max-md:w-full max-md:ml-0 bg-white shadow-sm rounded-xl pt-10 pl-5">
-                Comments/Suggestions
-                <div className=" pr-6 flex w-full h-auto flex-col rounded-sm self-start max-md:max-w-full">
-                  {comments.map((comment, index) => (
+                <p>Comments/Suggestions</p>
+                <div className="pr-6 flex w-full flex-col rounded-sm self-start max-md:max-w-full overflow-y-auto max-h-80">
+                  {comments.map((element, index) => (
                     <div key={index} className="mb-4">
-                      <p>{comment.name}:</p>
-                      <p>{comment.text}</p>
+                      <p>
+                        {element.createdAt.slice(0, 10) +
+                          " " +
+                          element.createdAt.slice(11, 16)}
+                      </p>
+                      <p>{element.type}</p>
+                      <p>{element.comment}</p>
                     </div>
                   ))}
                 </div>

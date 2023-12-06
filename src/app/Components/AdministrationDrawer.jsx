@@ -25,18 +25,17 @@ import SysAdminView from "./SysAdminView";
 import StudentFeedback from "./StudentFeedback";
 import RaiseAIssue from "./RiseAIssue";
 import { Button } from "@mui/material";
-import { signOut } from "next-auth/react";
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-import { Pie } from "react-chartjs-2";
+import { signOut, useSession } from "next-auth/react";
 import axios from "axios";
+import { countStars } from "../../../lib/mergeArray";
 const drawerWidth = 240;
-ChartJS.register(ArcElement, Tooltip, Legend);
+
 function AdministrationDrawer(props) {
   const { window, drawerValue, role } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [currentTab, setCurrentTab] = React.useState("Dashboard");
   const [reviews, setReviews] = React.useState([]);
-  const [messData, setMessData] = React.useState(null);
+  const { data: userdata } = useSession();
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
@@ -62,26 +61,33 @@ function AdministrationDrawer(props) {
           SWEEPER: sweeperReview,
           LAUNDRY: laundryReview,
         };
-        const messData = {
-          labels: Object.keys(JSON.parse(finalData.MESS[0].stars)),
-
-          datasets: [
-            {
-              label: "Mess Review",
-              data: finalData.MESS.map((element) => {
-                return Object.values(JSON.parse(element.stars));
-              })[0],
-              backgroundColor: ["red", "blue", "yellow", "green"],
-              borderWidth: 1,
-            },
-          ],
+        const totalData = {
+          MESS: countStars(
+            finalData.MESS.map((element) => {
+              return JSON.parse(element.stars);
+            })
+          ),
+          INTERNET: countStars(
+            finalData.INTERNET.map((element) => {
+              return JSON.parse(element.stars);
+            })
+          ),
+          SWEEPER: countStars(
+            finalData.SWEEPER.map((element) => {
+              return JSON.parse(element.stars);
+            })
+          ),
+          Laundry: countStars(
+            finalData.LAUNDRY.map((element) => {
+              return JSON.parse(element.stars);
+            })
+          ),
         };
-        setMessData(messData);
-        setReviews(finalData);
+        setReviews(totalData);
       }
     })();
   }, []);
-  console.log(reviews.MESS);
+  console.log(userdata);
   const drawer = (
     <div>
       <Toolbar />
@@ -91,7 +97,9 @@ function AdministrationDrawer(props) {
         src="/assets/warden.png"
         alt="Student"
       />
-      <h3 className="pt-2 pb-3  text-center">Name</h3>
+      <h3 className="pt-2 pb-3  text-center">
+        {userdata ? userdata.name : "User"}
+      </h3>
 
       <Divider />
       <List>
@@ -201,6 +209,7 @@ function AdministrationDrawer(props) {
         }}
       >
         <Toolbar />
+        {currentTab === "Dashboard" && <ViewDashboard reviews={reviews} />}
         {currentTab === "AddStudents" && <AddStudent />}
         {currentTab === "View Issues" && <ViewIssues />}
         {currentTab === "SysAdminView" && <SysAdminView />}

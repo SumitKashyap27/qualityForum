@@ -1,7 +1,25 @@
-"use client"
-import React from 'react';
+"use client";
+import React, { useEffect, useState } from "react";
+import { InternetPieChart } from "./Charts";
+import axios from "axios";
 
 const SysAdminView = (props) => {
+  const { reviews } = props;
+  const [comments, setComments] = useState([]);
+  useEffect(() => {
+    // Fetch comments from the server and update the state
+    const fetchData = async () => {
+      try {
+        const { data } = await axios.get("/api/issue");
+        setComments(data.data); // Assuming your server response has a 'comments' array
+      } catch (error) {
+        console.error("Error fetching comments:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+  console.log(comments);
   return (
     <div className="flex flex-col items-center">
       <div className="w-full flex flex-col items-center max-container-width  mb-20 max-md:max-w-full max-md:my-10">
@@ -10,6 +28,12 @@ const SysAdminView = (props) => {
             <div className="flex grow flex-col items-stretch max-md:max-w-full max-md:mt-8">
               <div className=" pl-9 flex-col text-black text-3xl shadow-sm bg-white rounded-xl leading-9 relative fill-white overflow-hidden min-h-[600px] w-full items-center pr-5 pt-8 pb-[478px] max-md:max-w-full max-md:pb-10">
                 INTERNET
+                {reviews && (
+                  <InternetPieChart
+                    className="mt-7"
+                    Internet={reviews.INTERNET}
+                  />
+                )}
               </div>
             </div>
           </div>
@@ -20,6 +44,17 @@ const SysAdminView = (props) => {
                   Comments
                 </div>
                 <div className="border flex shrink-0 rounded h-[590px] border-solid border-black flex-col mt-6 max-md:max-w-full" />
+                {comments.map((element, index) => (
+                  <div key={index} className="mb-4">
+                    <p>
+                      {element.createdAt.slice(0, 10) +
+                        " " +
+                        element.createdAt.slice(11, 16)}
+                    </p>
+                    <p>{element.type}</p>
+                    <p>{element.comment}</p>
+                  </div>
+                ))}
               </div>
             </div>
           </div>

@@ -212,7 +212,7 @@ function AdministrationDrawer(props) {
         {currentTab === "Dashboard" && <ViewDashboard reviews={reviews} />}
         {currentTab === "AddStudents" && <AddStudent />}
         {currentTab === "View Issues" && <ViewIssues />}
-        {currentTab === "SysAdminView" && <SysAdminView />}
+        {currentTab === "SysAdminView" && <SysAdminView reviews={reviews} />}
         {currentTab === "Feedback" && <StudentFeedback />}
         {currentTab === "RaiseAIssue" && <RaiseAIssue />}
       </Box>

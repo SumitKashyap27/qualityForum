@@ -1,5 +1,5 @@
-"use client"
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
@@ -9,12 +9,41 @@ import Container from "@mui/material/Container";
 import { Typography } from "@mui/material";
 
 const AddStudent = (props) => {
+  const [formData, setFormData] = useState({
+    name: "",
+    fathername: "",
+    hostelname: "",
+    roomnumber: "",
+    CollegeId: "",
+    phonenumber: "",
+    fatherPhoneNumber: "",
+    password: "",
+    repeatpassword: "",
+  });
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
+
+    // Update the state with the form values
+    setFormData({
+      name: data.get("Name"),
+      fathername: data.get("fathername"),
+      hostelname: data.get("hostelname"),
+      roomnumber: data.get("roomnumber"),
+      CollegeId: data.get("CollegeId"),
+      phonenumber: data.get("phonenumber"),
+      fatherPhoneNumber: data.get("phonenumber"),
       password: data.get("password"),
+      repeatpassword: data.get("repeatpassword"),
+    });
+
+    // Log the updated state with the role
+    console.log({
+      name: formData.name,
+      collegeId: formData.CollegeId,
+      role: "STUDENT",
+      password: formData.password,
     });
   };
 
@@ -23,9 +52,7 @@ const AddStudent = (props) => {
       <header className="bg-sky-100 bg-opacity-60 self-stretch flex flex-col mb-1 pb-24 px-5 max-md:max-w-full">
         <section className="self-center w-full mt-4 max-md:max-w-full max-md:mt-2">
           <div className="flex w-full grow flex-col flex-1 mx-auto px-3 py-6 rounded-xl max-md:mt-2 bg-white text-black">
-            <h2 className="text-4xl text-center mb-4">
-              Add Students
-            </h2>
+            <h2 className="text-4xl text-center mb-4">Add Students</h2>
           </div>
         </section>
         <section>
@@ -108,14 +135,14 @@ const AddStudent = (props) => {
                       />
                     </Grid>
                     <Grid item xs={12} sm={6}>
-                      <Typography> Father Phone Number</Typography>
+                      <Typography>Father Phone Number</Typography>
                       <TextField
                         required
                         fullWidth
-                        name="phonenumber"
-                        label=" Father Phone Number"
-                        id="phonenumber"
-                        autoComplete="phonenumber"
+                        name="fatherPhoneNumber"
+                        label="Father Phone Number"
+                        id="fatherPhoneNumber"
+                        autoComplete="fatherPhoneNumber"
                       />
                     </Grid>
                     <Grid item xs={12} sm={6}>
@@ -159,4 +186,5 @@ const AddStudent = (props) => {
     </main>
   );
 };
+
 export default AddStudent;

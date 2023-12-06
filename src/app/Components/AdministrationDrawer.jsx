@@ -98,7 +98,7 @@ function AdministrationDrawer(props) {
         alt="Student"
       />
       <h3 className="pt-2 pb-3  text-center">
-        {userdata ? userdata.name : "User"}
+        {userdata ? userdata.user.name : "User"}
       </h3>
 
       <Divider />

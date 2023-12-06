@@ -24,11 +24,7 @@ export async function GET(req) {
   try {
     const token = await getToken({ req: req });
     if (token && token.user.id) {
-      const response = await prisma.issue.findMany({
-        where: {
-          userId: token.user.id,
-        },
-      });
+      const response = await prisma.issue.findMany();
       console.log(response);
       return NextResponse.json({ data: response }, { status: 200 });
     }

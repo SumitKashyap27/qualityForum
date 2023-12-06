@@ -7,6 +7,7 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import { Typography } from "@mui/material";
+import axios from "axios";
 
 const AddStudent = (props) => {
   const [formData, setFormData] = useState({
@@ -21,7 +22,7 @@ const AddStudent = (props) => {
     repeatpassword: "",
   });
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
 
@@ -39,12 +40,19 @@ const AddStudent = (props) => {
     });
 
     // Log the updated state with the role
-    console.log({
+
+    const finalData = {
       name: formData.name,
       collegeId: formData.CollegeId,
       role: "STUDENT",
       password: formData.password,
-    });
+    };
+    try {
+      const response = await axios.post("/api/user", finalData);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -121,6 +129,7 @@ const AddStudent = (props) => {
                         label="College Id"
                         id="CollegeId"
                         autoComplete="CollegeId"
+                        type="email"
                       />
                     </Grid>
                     <Grid item xs={12} sm={6}>
@@ -172,8 +181,9 @@ const AddStudent = (props) => {
                     type="submit"
                     fullWidth
                     variant="contained"
+                    disabled={formData.password !== formData.repeatpassword}
                     sx={{ mt: 3, mb: 2 }}
-                    className="bg-blue-700 hover:bg-blue-700"
+                    className="bg-blue-700 hover:bg-blue-700 disabled:bg-blue-200"
                   >
                     Register
                   </Button>

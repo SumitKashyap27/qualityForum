@@ -146,7 +146,7 @@ const ViewDashboard = (props) => {
         <section>
           <>
             <div className="grid grid-cols-3 md:grid-cols-2 gap-4 drop-shadow-xl mt-14 max-md:max-w-full max-md:mt-10">
-              <div className="grid  items-stretch max-md:w-full max-md:ml-0">
+              <div className="grid max-md:w-full max-md:ml-0">
                 <div className="shadow-sm bg-white flex w-full shrink-0 h-auto flex-col mx-auto rounded-xl max-md:max-w-full max-md:mt-9">
                   <div className="grid col-span-2  md:col-span-2 w-full items-start gap-4 px-4 py-10 mx-auto">
                     <h1 className="flex items-center text-2xl">View Issues</h1>
@@ -159,8 +159,8 @@ const ViewDashboard = (props) => {
                               : "white"
                           }`}
                         >
-                          <div className="flex w-full items-center justify-between">
-                            <div className="flex items-center">
+                          <div className="flex w-full items-center">
+
                               <div className="text-sm">
                                 <p
                                   className={`font-medium ${
@@ -169,32 +169,33 @@ const ViewDashboard = (props) => {
                                       : "text-gray-900"
                                   }`}
                                 >
+                                  {/* Update Here */}
                                   <div
-                                    style={{
-                                      justifyContent: "space-between",
-                                      display: "flex",
-                                    }}
+                                  className="flex justify-center items-center "
+
                                   >
                                     <>{plan.name}</>
+                                    <div className="flex rounded border-2 border-indigo-300/100 ml-4">
                                     <>
-                                      <p className="text-green-500 bg-black p-1 rounded-full">
+                                      <p className="text-green-500 p-1 ">
                                         {
                                           calculateSatisfaction(plan.name)
                                             .satisfied
                                         }
                                       </p>
-                                      <p className="text-red-500 bg-black p-1 rounded-full">
+                                      <p className=" text-red-500 p-1 ">
                                         {
                                           calculateSatisfaction(plan.name)
                                             .unsatisfied
                                         }
                                       </p>
                                     </>
+                                    </div>
                                   </div>
                                 </p>
                                 {/* Description can be added here */}
                               </div>
-                            </div>
+
                             {selectedPlans.includes(plan) && (
                               <div className="shrink-0 text-white"></div>
                             )}

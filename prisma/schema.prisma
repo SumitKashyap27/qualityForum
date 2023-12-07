@@ -18,17 +18,17 @@ model Profile {
 }
 
 model User {
-  id            String    @id @default(cuid())
+  id            String         @id @default(cuid())
   name          String?
-  collegeId     String?   @unique
+  collegeId     String?        @unique
   emailVerified DateTime?
   image         String?
   role          Role
   password      String
-  createdAt     DateTime  @default(now())
+  createdAt     DateTime       @default(now())
   profile       Profile?
   Issue         Issue[]
-  satisfaction Satisfaction[]
+  satisfaction  Satisfaction[]
 }
 
 model Issue {
@@ -37,16 +37,16 @@ model Issue {
   stars     String
   comment   String
   createdAt DateTime @default(now())
-  userId    String   
+  userId    String
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Satisfaction {
-  id String @id @default(cuid())
-  type Problems
+  id        String   @id @default(cuid())
+  type      Problems
   satisfied Boolean
-  userId String
-  user User @relation(fields: [userId],references: [id],onDelete: Cascade)
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 enum Problems {

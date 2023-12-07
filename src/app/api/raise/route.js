@@ -9,18 +9,19 @@ export async function POST(req) {
   try {
     const token = await getToken({ req: req });
     const data = await req.json();
+    console.log(data);
     const { type, satisfied } = data;
 
     if (token && token.user.id) {
       // Check if a record with the given type already exists
-      const existingRecord = await prisma.satisfaction.findUnique({
-        where: { type: type },
+      const existingRecord = await prisma.satisfaction.findFirst({
+        where: { type: type, userId: token.user.id },
       });
-
+      console.log(existingRecord);
       if (existingRecord) {
         // If the record exists, update it
         const updatedRecord = await prisma.satisfaction.update({
-          where: { type: type },
+          where: { id: existingRecord.id },
           data: { satisfied: satisfied },
         });
 
@@ -28,7 +29,7 @@ export async function POST(req) {
       } else {
         // If the record does not exist, create a new one
         const newRecord = await prisma.satisfaction.create({
-          data: { type: type, satisfied: satisfied },
+          data: { type: type, satisfied: satisfied, userId: token.user.id },
         });
 
         return NextResponse.json({ data: newRecord }, { status: 200 });
@@ -40,4 +41,13 @@ export async function POST(req) {
     console.error(error);
     return NextResponse.json({ error: error }, { status: 500 });
   }
+}
+
+export async function GET(req) {
+  const token = await getToken({ req: req });
+  if (token && token.user.id) {
+    const response = await prisma.satisfaction.findMany({});
+    return NextResponse.json({ data: response }, { status: 200 });
+  }
+  return NextResponse.json({ data: "unauthorized" }, { status: 200 });
 }

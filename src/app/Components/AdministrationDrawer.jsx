@@ -87,7 +87,6 @@ function AdministrationDrawer(props) {
       }
     })();
   }, []);
-  console.log(userdata);
   const drawer = (
     <div>
       <Toolbar />
@@ -127,7 +126,6 @@ function AdministrationDrawer(props) {
       </div>
     </div>
   );
-  console.log(currentTab);
   const container =
     window !== undefined ? () => window().document.body : undefined;
 

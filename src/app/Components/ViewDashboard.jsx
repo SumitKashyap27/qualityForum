@@ -7,24 +7,22 @@ import {
   SweeperPieChart,
 } from "./Charts";
 import axios from "axios";
+
 const plans = [
   {
-    name: "Food",
+    name: "FOOD",
   },
   {
-    name: "Medical",
+    name: "MEDICAL",
   },
   {
-    name: "Drinking Water",
+    name: "WATER",
   },
   {
-    name: "Toilets",
+    name: "TOILET",
   },
   {
-    name: "Gyms",
-  },
-  {
-    name: "Others",
+    name: "GYM",
   },
 ];
 
@@ -32,27 +30,44 @@ const ViewDashboard = (props) => {
   const { reviews } = props;
   const [selectedPlans, setSelectedPlans] = useState([]);
   const [comments, setComments] = useState([]);
-  const togglePlan = (plan) => {
-    if (selectedPlans.includes(plan)) {
-      setSelectedPlans(selectedPlans.filter((selected) => selected !== plan));
-    } else {
-      setSelectedPlans([...selectedPlans, plan]);
-    }
-  };
+  const [raiseData, setRaiseData] = useState([]);
+
   useEffect(() => {
     // Fetch comments from the server and update the state
     const fetchData = async () => {
       try {
         const { data } = await axios.get("/api/issue");
-        setComments(data.data); // Assuming your server response has a 'comments' array
+        setComments(data.data);
       } catch (error) {
         console.error("Error fetching comments:", error);
       }
     };
 
     fetchData();
+
+    // Fetch raise data from the server and update the state
+    const fetchRaiseData = async () => {
+      try {
+        const { data } = await axios.get("/api/raise");
+        setRaiseData(data.data);
+      } catch (error) {
+        console.error("Error fetching raise data:", error);
+      }
+    };
+
+    fetchRaiseData();
   }, []);
-  console.log(comments);
+
+  const calculateSatisfaction = (category) => {
+    const categoryData = raiseData.filter((item) => item.type === category);
+    const satisfiedCount = categoryData.filter((item) => item.satisfied).length;
+    const unsatisfiedCount = categoryData.filter(
+      (item) => !item.satisfied
+    ).length;
+
+    return { satisfied: satisfiedCount, unsatisfied: unsatisfiedCount };
+  };
+
   return (
     <main>
       <header className=" bg-opacity-60 self-stretch flex flex-col mb-1 pb-24 px-5 max-md:max-w-full">
@@ -141,9 +156,8 @@ const ViewDashboard = (props) => {
                           className={`relative flex cursor-pointer rounded-lg px-5 py-4 shadow-md focus:outline-none ${
                             selectedPlans.includes(plan)
                               ? "bg-red-900/75 text-white"
-                              : "bg-green-500"
+                              : "white"
                           }`}
-                          onClick={() => togglePlan(plan)}
                         >
                           <div className="flex w-full items-center justify-between">
                             <div className="flex items-center">
@@ -155,7 +169,28 @@ const ViewDashboard = (props) => {
                                       : "text-gray-900"
                                   }`}
                                 >
-                                  {plan.name}
+                                  <div
+                                    style={{
+                                      justifyContent: "space-between",
+                                      display: "flex",
+                                    }}
+                                  >
+                                    <>{plan.name}</>
+                                    <>
+                                      <p className="text-green-500 bg-black p-1 rounded-full">
+                                        {
+                                          calculateSatisfaction(plan.name)
+                                            .satisfied
+                                        }
+                                      </p>
+                                      <p className="text-red-500 bg-black p-1 rounded-full">
+                                        {
+                                          calculateSatisfaction(plan.name)
+                                            .unsatisfied
+                                        }
+                                      </p>
+                                    </>
+                                  </div>
                                 </p>
                                 {/* Description can be added here */}
                               </div>

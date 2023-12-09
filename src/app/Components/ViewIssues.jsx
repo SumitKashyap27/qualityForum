@@ -1,26 +1,47 @@
 "use client";
 import React, { useState } from "react";
+import axios from "axios";
+import { Popup, failToast, successToast } from "./SuccessPopup";
 
 const plans = [
   {
-    name: "Food",
+    name: "FOOD",
   },
   {
-    name: "Medical",
+    name: "MEDICAL",
   },
   {
-    name: "Drinking Water",
+    name: "WATER",
   },
   {
-    name: "Toilets",
+    name: "TOILET",
   },
   {
-    name: "Gyms",
+    name: "GYM",
   },
 ];
 
 export default function ViewIssues() {
   const [selectedPlans, setSelectedPlans] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const resolveIssue = async (plan) => {
+    setLoading(true);
+    try {
+      // Make an API call to mark the issue as resolved
+      const response = await axios.delete(`/api/raise?type=${plan.name}`);
+      if (response.data.data) {
+        successToast("Resolved!");
+      }
+      // Optionally, update the UI or perform additional actions after a successful resolution
+    } catch (error) {
+      // Handle API call error, if needed
+      console.error("Error resolving issue:", error);
+      failToast("Failed!");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const togglePlan = (plan) => {
     if (selectedPlans.includes(plan)) {
@@ -66,15 +87,19 @@ export default function ViewIssues() {
             </div>
             <div className="flex items-center">
               <button
-                onClick={() => "Satisfied"}
-                className="inline-flex items-center px-4 py-2 font-semibold tracking-tighter transition duration-500 ease-in-out transform bg-green-500 border rounded-lg text-md hover:text-white hover:bg-green-600 focus:shadow-outline"
+                onClick={() => resolveIssue(plan)}
+                className={`inline-flex items-center px-4 py-2 font-semibold tracking-tighter transition duration-500 ease-in-out transform bg-green-500 border rounded-lg text-md hover:text-white hover:bg-green-600 focus:shadow-outline ${
+                  loading ? "opacity-50 cursor-not-allowed" : ""
+                }`}
+                disabled={loading}
               >
-                Resolved
+                {loading ? "Resolving..." : "Resolved"}
               </button>
             </div>
           </React.Fragment>
         ))}
       </div>
+      <Popup />
     </>
   );
 }

@@ -51,3 +51,19 @@ export async function GET(req) {
   }
   return NextResponse.json({ data: "unauthorized" }, { status: 200 });
 }
+
+export async function DELETE(request) {
+  const { searchParams } = new URL(request.url);
+  const type = searchParams.get("type");
+  const token = await getToken({ req: request });
+  if (token && token.user.id) {
+    const response = await prisma.satisfaction.deleteMany({
+      where: {
+        type: type,
+      },
+    });
+    console.log(response);
+    return NextResponse.json({ data: response }, { status: 200 });
+  }
+  return NextResponse.json({ data: "unauthorized" }, { status: 500 });
+}

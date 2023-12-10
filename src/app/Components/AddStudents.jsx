@@ -43,10 +43,10 @@ const AddStudent = (props) => {
     // Log the updated state with the role
 
     const finalData = {
-      name: formData.name,
-      collegeId: formData.CollegeId,
+      name: data.get("Name"),
+      collegeId: data.get("CollegeId"),
       role: "STUDENT",
-      password: formData.password,
+      password: data.get("password"),
     };
     try {
       const response = await axios.post("/api/user", finalData);
@@ -163,6 +163,7 @@ const AddStudent = (props) => {
                           name="password"
                           label="Password"
                           id="password"
+                          type="password"
                           autoComplete="password"
                         />
                       </Grid>
@@ -171,6 +172,7 @@ const AddStudent = (props) => {
                         <TextField
                           required
                           fullWidth
+                          type="password"
                           name="repeatpassword"
                           label="Repeat Password"
                           id="repeatpassword"

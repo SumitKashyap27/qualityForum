@@ -100,7 +100,7 @@ const ViewDashboard = (props) => {
                   SWEEPER
                 </h2>
                 <div className="aspect-w-16 aspect-h-9 object-contain object-center overflow-hidden self-center mt-4">
-                  <p>Graph of Sweeper Service</p>
+                  <p>Graph of Sweeper Servic</p>
                   {reviews.length !== 0 && (
                     <SweeperPieChart Sweeper={reviews.SWEEPER} />
                   )}

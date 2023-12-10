@@ -145,11 +145,13 @@ const ViewDashboard = (props) => {
         </section>
         <section>
           <>
-            <div className="grid grid-cols-3 md:grid-cols-2 gap-4 drop-shadow-xl mt-14 max-md:max-w-full max-md:mt-10">
-              <div className="grid max-md:w-full max-md:ml-0">
-                <div className="shadow-sm bg-white flex w-full shrink-0 h-auto flex-col mx-auto rounded-xl max-md:max-w-full max-md:mt-9">
-                  <div className="grid col-span-2  md:col-span-2 w-full items-start gap-4 px-4 py-10 mx-auto">
-                    <h1 className="flex items-center text-2xl">View Issues</h1>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 drop-shadow-xl mt-14 max-md:max-w-full max-md:mt-10">
+              <div className="max-md:w-full">
+                <div className="shadow-sm bg-blue-100 flex w-full shrink-0 h-auto flex-col mx-auto rounded-xl max-md:max-w-full max-md:mt-9">
+                  <div className="grid col-span-2 md:col-span-2 w-full items-start gap-4 px-4 py-6 md:py-10 mx-auto">
+                    <h1 className="flex font-semibold items-center text-2xl">
+                      View Issues
+                    </h1>
                     {plans.map((plan) => (
                       <React.Fragment key={plan.name}>
                         <div
@@ -160,22 +162,17 @@ const ViewDashboard = (props) => {
                           }`}
                         >
                           <div className="flex w-full items-center">
-
-                              <div className="text-sm">
-                                <p
-                                  className={`font-medium ${
-                                    selectedPlans.includes(plan)
-                                      ? "text-white"
-                                      : "text-gray-900"
-                                  }`}
-                                >
-                                  {/* Update Here */}
-                                  <div
-                                  className="flex justify-center items-center "
-
-                                  >
-                                    <>{plan.name}</>
-                                    <div className="flex rounded border-2 border-indigo-300/100 ml-4">
+                            <div className="text-sm">
+                              <p
+                                className={`font-medium ${
+                                  selectedPlans.includes(plan)
+                                    ? "text-white"
+                                    : "text-gray-900"
+                                }`}
+                              >
+                                <div className="flex justify-center items-center">
+                                  <>{plan.name}</>
+                                  <div className="flex rounded border-2 border-indigo-300/100 ml-4">
                                     <>
                                       <p className="text-green-500 p-1 ">
                                         {
@@ -190,12 +187,10 @@ const ViewDashboard = (props) => {
                                         }
                                       </p>
                                     </>
-                                    </div>
                                   </div>
-                                </p>
-                                {/* Description can be added here */}
-                              </div>
-
+                                </div>
+                              </p>
+                            </div>
                             {selectedPlans.includes(plan) && (
                               <div className="shrink-0 text-white"></div>
                             )}
@@ -206,20 +201,27 @@ const ViewDashboard = (props) => {
                   </div>
                 </div>
               </div>
-              <div className="grid col-span-1 md:col-span-1 flex-grow items-stretch ml-0 md:ml-5 max-md:w-full max-md:ml-0 bg-white shadow-sm rounded-xl pt-10 pl-5">
-                <p>Comments/Suggestions</p>
-                <div className="pr-6 flex w-full flex-col rounded-sm self-start max-md:max-w-full overflow-y-auto max-h-80">
-                  {comments.map((element, index) => (
-                    <div key={index} className="mb-4">
-                      <p>
-                        {element.createdAt.slice(0, 10) +
-                          " " +
-                          element.createdAt.slice(11, 16)}
-                      </p>
-                      <p>{element.type}</p>
-                      <p>{element.comment}</p>
-                    </div>
-                  ))}
+
+              <div className="flex-grow md:mt-0">
+                <div className="bg-blue-100 shadow-sm rounded-xl p-4 md:p-5">
+                  <p className="text-xl font-semibold mb-3 pt-10">
+                    Comments/Suggestions
+                  </p>
+                  <div className="flex flex-col max-h-80 overflow-y-auto ">
+                    {comments.map((element, index) => (
+                      <div key={index} className="mb-4">
+                        <p className="text-xs text-gray-500">
+                          {element.createdAt.slice(0, 10) +
+                            " " +
+                            element.createdAt.slice(11, 16)}
+                        </p>
+                        <p className="text-sm font-medium mb-1">
+                          {element.type}
+                        </p>
+                        <p className="text-sm">{element.comment}</p>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
